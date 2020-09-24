@@ -1,6 +1,6 @@
 export const initialState = {
     user: null,
-    token: null,
+    token: process.env.REACT_APP_SPOTIFY_TEMP_ACCESS,
     playlists: [],
     playing: false,
     item: null

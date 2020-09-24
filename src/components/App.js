@@ -38,8 +38,8 @@ export default () => {
         })
       }) 
     }
-    // console.log('TOKEN', token)
   }, [])
+  // console.log('TOKEN', token)
 
   return (
     <div className="app">
