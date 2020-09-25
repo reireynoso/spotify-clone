@@ -36,7 +36,16 @@ export default () => {
           type: "SET_USER",
           user
         })
-      }) 
+      })
+      
+      // gets use playlist
+      spotify.getUserPlaylists().then((playlists) => {
+        // console.log(playlists)
+        dispatch({
+          type: "SET_PLAYLISTS",
+          playlists
+        })
+      })
     }
   }, [])
   // console.log('TOKEN', token)

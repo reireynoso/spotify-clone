@@ -1,5 +1,6 @@
 export const initialState = {
     user: null,
+    // token: null,
     token: process.env.REACT_APP_SPOTIFY_TEMP_ACCESS,
     playlists: [],
     playing: false,
@@ -17,6 +18,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 token: action.token
+            }
+        case "SET_PLAYLISTS":
+            return {
+                ...state,
+                playlists: action.playlists
             }
         default: 
             return state
