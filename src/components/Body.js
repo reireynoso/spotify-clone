@@ -21,20 +21,20 @@ export default ({spotify}) => {
                      <h2>Discover Weekly</h2>
                      <p>{discoverWeekly?.description}</p>
                 </div>
+            </div>
 
-                <div className="body__songs">
-                    <div className="body__icons">
-                        <PlayCircleFilledIcon className="body__shuffle"/>
-                        <FavoriteIcon fontSize="large"/>
-                        <MoreHorizIcon/>
-                    </div>
-
-                    {
-                        discoverWeekly?.tracks.items.map(item => (
-                            <SongRow track={item.track} />
-                        )) 
-                    }
+            <div className="body__songs">
+                <div className="body__icons">
+                    <PlayCircleFilledIcon className="body__shuffle"/>
+                    <FavoriteIcon fontSize="large"/>
+                    <MoreHorizIcon/>
                 </div>
+
+                {
+                    discoverWeekly?.tracks.items.map(item => (
+                        <SongRow track={item.track} />
+                    )) 
+                }
             </div>
         </div>
     )

@@ -2,10 +2,16 @@
     /* border: 1px solid red; */
     flex: 0.8;
     /* background-color: rgb(91, 87, 115); */
-    height: 100vh;
+    height: 80vh;
+
     color: white;
     padding: 30px;
+    overflow-y: overlay;
     background: linear-gradient(rgb(91, 87, 115), rgba(0,0,0,1));
+}
+
+.body::-webkit-scrollbar {
+    display: none;
 }
 
 .body__info {
