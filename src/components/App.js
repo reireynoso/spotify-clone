@@ -46,6 +46,13 @@ export default () => {
           playlists
         })
       })
+
+      spotify.getPlaylist("37i9dQZEVXcO8XvfMXItW9").then(res => {
+        dispatch({
+          type: "SET_DISCOVER_WEEKLY",
+          discoverWeekly: res
+        })
+      })
     }
   }, [])
   // console.log('TOKEN', token)

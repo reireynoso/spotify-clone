@@ -4,7 +4,8 @@ export const initialState = {
     token: process.env.REACT_APP_SPOTIFY_TEMP_ACCESS,
     playlists: [],
     playing: false,
-    item: null
+    item: null,
+    discoverWeekly: null
 }
 
 const reducer = (state, action) => {
@@ -23,6 +24,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 playlists: action.playlists
+            }
+        case "SET_DISCOVER_WEEKLY": 
+            return {
+                ...state,
+                discoverWeekly: action.discoverWeekly
             }
         default: 
             return state
