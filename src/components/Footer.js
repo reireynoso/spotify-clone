@@ -11,8 +11,28 @@ import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 
 import {Grid, Slider} from "@material-ui/core";
 
+import {useDataLayerValue} from '../DataLayer';
 
-export default () => {
+export default ({spotify}) => {
+
+    const [{playing, item}, dispatch] = useDataLayerValue();
+
+    const handlePlayPause = () => {
+        if(playing){
+            spotify.pause();
+
+            dispatch({
+                type: "SET_PLAYING",
+                playing: false
+            })
+        }else{
+            spotify.play();
+            dispatch({
+                type: "SET_PLAYING",
+                playing: true
+            })
+        }
+    }
 
     return (
         <div className="footer">
@@ -32,7 +52,20 @@ export default () => {
             <div className="footer__center">
                 <ShuffleIcon className="footer__green"/>
                 <SkipPreviousIcon className="footer__icon"/>
-                <PlayCircleOutlineIcon fontSize="large" className="footer__icon"/>
+                {
+                    !playing ? <PlayCircleOutlineIcon 
+                        fontSize="large" 
+                        className="footer__icon"
+                        onClick={handlePlayPause}
+                        /> 
+                        : 
+                        <PauseCircleOutlineIcon 
+                        fontSize="large" 
+                        className="footer__icon"
+                        onClick={handlePlayPause}
+                        />
+                }
+                
                 <SkipNextIcon className="footer__icon"/>
                 <RepeatIcon className="footer__green"/>
             </div>

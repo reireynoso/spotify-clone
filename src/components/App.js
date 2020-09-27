@@ -14,13 +14,24 @@ export default () => {
 
   const [{user, token}, dispatch] = useDataLayerValue(); 
 
+  const checkTime = (localStorageToken) => {
+    let oneHour = 50 * 60 * 1000; //ms
+
+    const time = localStorageToken.expiresIn
+    const timeExpired = (Date.now() - time) > oneHour;
+    // console.log(timeExpired)
+    // debugger
+    return timeExpired
+  }
+
   useEffect(() => {
     let _token;
     // gets the access token from spotify in localstorage
-    const localStorageToken = localStorage.getItem("spotify")
-    if(localStorageToken){
+    const localStorageToken = JSON.parse(localStorage.getItem("spotify"));
+
+    if(localStorageToken && !checkTime(localStorageToken)){
       // parse the localStorage object and pulls out the token
-      _token = JSON.parse(localStorageToken).token
+      _token = localStorageToken.token
     }else{
       // if no access token in localStorage, redirect to Spotify and gain one
       const hash = getTokenFromUrl();
@@ -30,7 +41,8 @@ export default () => {
 
     if(_token){
       const spotifyToken = {
-        token: _token
+        token: _token,
+        expiresIn: Date.now()
       }
       localStorage.setItem("spotify", JSON.stringify(spotifyToken))
       dispatch({

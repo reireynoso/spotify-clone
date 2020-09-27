@@ -1,10 +1,10 @@
 import React from 'react';
 import './SongRow.css';
 
-export default ({track}) => {
+export default ({track, playSong}) => {
 
     return (
-        <div className="songRow">
+        <div onClick={() => playSong(track.id)} className="songRow">
             <img className="songRow__album" src={track.album.images[0].url} alt=""/>
             <div className="songRow__info">
                 <h1>{track.name}</h1>
