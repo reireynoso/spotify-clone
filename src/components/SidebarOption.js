@@ -1,10 +1,22 @@
 import React from 'react';
 import './SidebarOption.css';
 
-export default ({title,Icon}) => {
+import {useDataLayerValue} from '../DataLayer';
 
+export default ({title,Icon, playlist}) => {
+
+    const [{}, dispatch] = useDataLayerValue();
+    // console.log(playlist)
+    const handlePlaylistClick = () => {
+        if(playlist){
+            dispatch({
+                type: "SET_SELECTED_PLAYLIST",
+                selectedPlaylist: playlist
+            })
+        }
+    }
     return (
-        <div className="sidebarOption">
+        <div onClick={handlePlaylistClick} className="sidebarOption">
             {Icon && <Icon className="sidebarOption__icon"/>}
             {
                 Icon ? <h4>{title}</h4> : <p>{title}</p>

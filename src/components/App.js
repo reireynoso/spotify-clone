@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { getTokenFromUrl } from '../spotify';
 import './App.css';
 
@@ -12,16 +12,27 @@ const spotify = new SpotifyWebApi(); //creates instance of spotify allowing us t
 
 export default () => {
 
-  // const [token, setToken] = useState(null);
   const [{user, token}, dispatch] = useDataLayerValue(); 
 
   useEffect(() => {
-    const hash = getTokenFromUrl();
-    window.location.hash = ""
-    const _token = hash.access_token
+    let _token;
+    // gets the access token from spotify in localstorage
+    const localStorageToken = localStorage.getItem("spotify")
+    if(localStorageToken){
+      // parse the localStorage object and pulls out the token
+      _token = JSON.parse(localStorageToken).token
+    }else{
+      // if no access token in localStorage, redirect to Spotify and gain one
+      const hash = getTokenFromUrl();
+      window.location.hash = ""
+      _token = hash.access_token
+    }
 
     if(_token){
-      // setToken(_token)
+      const spotifyToken = {
+        token: _token
+      }
+      localStorage.setItem("spotify", JSON.stringify(spotifyToken))
       dispatch({
         type: "SET_TOKEN",
         token: _token
@@ -31,7 +42,6 @@ export default () => {
 
       //gets user account. returns promise
       spotify.getMe().then(user => {
-        
         dispatch({
           type: "SET_USER",
           user
@@ -48,6 +58,7 @@ export default () => {
       })
 
       spotify.getPlaylist("37i9dQZEVXcO8XvfMXItW9").then(res => {
+        // console.log(res)
         dispatch({
           type: "SET_DISCOVER_WEEKLY",
           discoverWeekly: res

@@ -5,7 +5,8 @@ export const initialState = {
     playlists: [],
     playing: false,
     item: null,
-    discoverWeekly: null
+    discoverWeekly: null,
+    selectedPlaylist: null
 }
 
 const reducer = (state, action) => {
@@ -28,7 +29,13 @@ const reducer = (state, action) => {
         case "SET_DISCOVER_WEEKLY": 
             return {
                 ...state,
-                discoverWeekly: action.discoverWeekly
+                discoverWeekly: action.discoverWeekly,
+                selectedPlaylist: action.discoverWeekly
+            }
+        case "SET_SELECTED_PLAYLIST":
+            return {
+                ...state,
+                selectedPlaylist: action.selectedPlaylist
             }
         default: 
             return state
